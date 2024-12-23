@@ -20,3 +20,7 @@ O setor responsável por manter esta conta é a Gerência de Engenharia de Softw
 - Felipe Monesi (Project Manager)
 - Ricardo Fudaba (Project Manager)
 - Marcelino Borges (Tech Lead e Arquiteto de Soluções)
+
+## Para mais informações
+
+[Acesse nossa página do Sharepoint](https://aramisbr.sharepoint.com/sites/TIEngenharia)
