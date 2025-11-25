@@ -9,15 +9,18 @@ O setor responsável por manter esta conta é a Gerência de Engenharia de Softw
 ## Squads
 
 - Core
-- Multimarcas
-- Connect
-- Cliente
+  - Foundation
+  - FlowTech
+  - AI Projects 
+- Produtos
+  - AppCliente
+  - AppVendedor
+  - Multimarcas 
 
 ## Gestores diretos
 
 - William Spinola (Head de Tecnologia)
 - Gabriel Tosta (Gerente de Engenharia)
-- Ricardo Fudaba (Project Manager)
 - Fernando Rodrigues (Tech Lead e Arquiteto de Soluções)
 - Caio Barros (Tech Lead e Principal Engineer)
 
