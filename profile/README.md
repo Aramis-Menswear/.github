@@ -16,10 +16,10 @@ O setor responsável por manter esta conta é a Gerência de Engenharia de Softw
 ## Gestores diretos
 
 - William Spinola (Head de Tecnologia)
-- Mariana Redivo (Gerente de Engenharia)
-- Felipe Monesi (Project Manager)
+- Gabriel Tosta (Gerente de Engenharia)
 - Ricardo Fudaba (Project Manager)
-- Marcelino Borges (Tech Lead e Arquiteto de Soluções)
+- Fernando Rodrigues (Tech Lead e Arquiteto de Soluções)
+- Caio Barros (Tech Lead e Principal Engineer)
 
 ## Para mais informações
 
