@@ -8,7 +8,7 @@ O setor responsável por manter esta conta é a Gerência de Engenharia de Softw
 
 ## Squads
 
-- Core
+- Plataforma
   - Foundation
   - FlowTech
   - AI Projects 
@@ -16,7 +16,10 @@ O setor responsável por manter esta conta é a Gerência de Engenharia de Softw
   - AppCliente
   - AppVendedor
   - Multimarcas 
-
+- Franquias
+  - FEI
+  - T&T
+  
 ## Gestores diretos
 
 - William Spinola (Head de Tecnologia)
