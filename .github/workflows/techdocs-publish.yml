@@ -31,14 +31,11 @@ jobs:
         run: techdocs-cli generate --no-docker --source-dir . --output-dir ./site
 
       - name: Publish to Azure Blob Storage
-        env:
-          AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-          AZURE_CLIENT_ID: ${{ secrets.AZURE_SERVICE_PRINCIPAL_ID }}
-          AZURE_CLIENT_SECRET: ${{ secrets.AZURE_SERVICE_PRINCIPAL_SECRET }}
         run: |
           techdocs-cli publish \
             --publisher-type azureBlobStorage \
             --azureAccountName ${{ secrets.TECHDOCS_AZURE_ACCOUNT_NAME }} \
+            --azureAccountKey ${{ secrets.TECHDOCS_AZURE_ACCOUNT_KEY }} \
             --storage-name ${{ secrets.TECHDOCS_AZURE_CONTAINER_NAME }} \
             --entity ${{ inputs.entity_namespace }}/${{ inputs.entity_kind }}/${{ inputs.entity_name }} \
             --directory ./site
