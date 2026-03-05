@@ -13,11 +13,6 @@ on:
       entity_name:
         required: true
         type: string
-    secrets:
-      AZURE_ACCOUNT_NAME:
-        required: true
-      AZURE_CONTAINER_NAME:
-        required: true
 
 jobs:
   publish-techdocs:
@@ -43,7 +38,7 @@ jobs:
         run: |
           techdocs-cli publish \
             --publisher-type azureBlobStorage \
-            --azureAccountName ${{ secrets.AZURE_ACCOUNT_NAME }} \
-            --storage-name ${{ secrets.AZURE_CONTAINER_NAME }} \
+            --azureAccountName ${{ secrets.TECHDOCS_AZURE_ACCOUNT_NAME }} \
+            --storage-name ${{ secrets.TECHDOCS_AZURE_CONTAINER_NAME }} \
             --entity ${{ inputs.entity_namespace }}/${{ inputs.entity_kind }}/${{ inputs.entity_name }} \
             --directory ./site
