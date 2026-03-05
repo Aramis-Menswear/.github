@@ -44,6 +44,6 @@ jobs:
           techdocs-cli publish \
             --publisher-type azureBlobStorage \
             --azureAccountName ${{ secrets.AZURE_ACCOUNT_NAME }} \
-            --containerName ${{ secrets.AZURE_CONTAINER_NAME }} \
+            --storage-name ${{ secrets.AZURE_CONTAINER_NAME }} \
             --entity ${{ inputs.entity_namespace }}/${{ inputs.entity_kind }}/${{ inputs.entity_name }} \
             --directory ./site
