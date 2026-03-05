@@ -1,0 +1,49 @@
+name: Publish TechDocs
+
+on:
+  workflow_call:
+    inputs:
+      entity_namespace:
+        required: false
+        type: string
+        default: default
+      entity_kind:
+        required: true
+        type: string
+      entity_name:
+        required: true
+        type: string
+    secrets:
+      AZURE_ACCOUNT_NAME:
+        required: true
+      AZURE_CONTAINER_NAME:
+        required: true
+
+jobs:
+  publish-techdocs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install MkDocs and TechDocs CLI
+        run: pip install mkdocs-techdocs-core==1.* && npm install -g @techdocs/cli
+
+      - name: Generate docs
+        run: techdocs-cli generate --no-docker --source-dir . --output-dir ./site
+
+      - name: Publish to Azure Blob Storage
+        env:
+          AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          AZURE_CLIENT_ID: ${{ secrets.AZURE_SERVICE_PRINCIPAL_ID }}
+          AZURE_CLIENT_SECRET: ${{ secrets.AZURE_SERVICE_PRINCIPAL_SECRET }}
+        run: |
+          techdocs-cli publish \
+            --publisher-type azureBlobStorage \
+            --azureAccountName ${{ secrets.AZURE_ACCOUNT_NAME }} \
+            --containerName ${{ secrets.AZURE_CONTAINER_NAME }} \
+            --entity ${{ inputs.entity_namespace }}/${{ inputs.entity_kind }}/${{ inputs.entity_name }} \
+            --directory ./site
