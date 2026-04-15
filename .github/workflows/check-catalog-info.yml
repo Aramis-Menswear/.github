@@ -1,0 +1,59 @@
+name: Catalog Info Check
+
+on:
+  workflow_call:
+
+jobs:
+  enforce-catalog-info:
+    name: Enforce catalog-info.yml
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check catalog-info.yml exists
+        run: |
+          if [ ! -f "catalog-info.yml" ]; then
+            echo "::error::catalog-info.yml not found at repository root."
+            echo ""
+            echo "Every repository must register itself in the Backstage Software Catalog."
+            echo "Create a catalog-info.yml at the root of this repository."
+            echo "See: https://backstage.aramis.com.br/docs/default/Component/engineering-handbook/guides/software-catalog-integration/"
+            exit 1
+          fi
+
+      - name: Validate catalog-info.yml schema
+        run: |
+          python3 - <<'EOF'
+          import yaml, sys
+
+          try:
+              with open("catalog-info.yml") as f:
+                  docs = [d for d in yaml.safe_load_all(f) if d is not None]
+          except yaml.YAMLError as e:
+              print(f"::error file=catalog-info.yml::catalog-info.yml is not valid YAML: {e}")
+              sys.exit(1)
+
+          if not docs:
+              print("::error file=catalog-info.yml::catalog-info.yml is empty or has no valid documents.")
+              sys.exit(1)
+
+          first = docs[0]
+          errors = []
+
+          for field in ["apiVersion", "kind", "metadata", "spec"]:
+              if not first.get(field):
+                  errors.append(f"Missing required top-level field: '{field}'")
+
+          if isinstance(first.get("metadata"), dict) and not first["metadata"].get("name"):
+              errors.append("Missing required field: 'metadata.name'")
+
+          if isinstance(first.get("spec"), dict) and not first["spec"].get("owner"):
+              errors.append("Missing required field: 'spec.owner'")
+
+          if errors:
+              for err in errors:
+                  print(f"::error file=catalog-info.yml::{err}")
+              sys.exit(1)
+
+          print(f"catalog-info.yml is valid ({len(docs)} document(s) found).")
+          EOF
