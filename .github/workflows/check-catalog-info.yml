@@ -2,6 +2,12 @@ name: Catalog Info Check
 
 on:
   workflow_call:
+  pull_request:
+    branches:
+      - main
+      - qa
+      - develop
+  merge_queue:
 
 jobs:
   enforce-catalog-info:
