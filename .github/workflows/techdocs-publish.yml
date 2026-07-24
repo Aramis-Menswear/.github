@@ -30,6 +30,17 @@ jobs:
       - name: Generate docs
         run: techdocs-cli generate --no-docker --source-dir . --output-dir ./site
 
+      - name: Tag docs build status
+        run: |
+          [ "${{ github.ref_name }}" = "main" ] && STATUS=released || STATUS=draft
+          python - "$STATUS" "${{ github.ref_name }}" <<'PY'
+          import json, sys
+          path = "./site/techdocs_metadata.json"
+          metadata = json.load(open(path))
+          metadata["aramis_status"], metadata["aramis_ref"] = sys.argv[1], sys.argv[2]
+          json.dump(metadata, open(path, "w"))
+          PY
+
       - name: Publish to Azure Blob Storage
         run: |
           techdocs-cli publish \
